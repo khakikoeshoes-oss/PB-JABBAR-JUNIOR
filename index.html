@@ -241,5 +241,26 @@ let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);save();alert('B
 }
 render();
 </script>
+  
+<!-- FIREBASE CONNECTION -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script>
+const pbFirebaseConfig = {
+  apiKey: "AIzaSyBJIrp6NNqyaxNcnCjtu6Wav8EaS8nQPV0",
+  authDomain: "pb-jabbar-junior.firebaseapp.com",
+  projectId: "pb-jabbar-junior",
+  storageBucket: "pb-jabbar-junior.firebasestorage.app",
+  messagingSenderId: "927415096445",
+  appId: "1:927415096445:web:54a2ec9a46cff6eb5acd14"
+};
+
+const pbFirebaseApp = firebase.initializeApp(pbFirebaseConfig);
+const pbCloudDb = pbFirebaseApp.firestore();
+
+console.log("Firebase PB JABBAR JUNIOR siap");
+</script>
+  
 </body>
 </html>
