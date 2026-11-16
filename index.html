@@ -136,6 +136,8 @@ img.photo{width:48px;height:48px;border-radius:50%;object-fit:cover}
 <button class="wide" onclick="exportCSV()">Export Data Excel (CSV)</button>
 <button class="wide" onclick="window.print()">Cetak Laporan</button>
 <button class="wide" onclick="backup()">Backup Data</button>
+  
+<button class="wide" onclick="clearAllData()">Hapus Semua Data</button>
 <label>Restore Backup</label><input type="file" accept=".json" onchange="restore(event)">
 </div>
 </section>
@@ -150,7 +152,17 @@ const money=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
 const today=()=>new Date().toISOString().slice(0,10);
 const month=()=>today().slice(0,7);
 function save(){localStorage.setItem('pbjabbar',JSON.stringify(db));render()}
-function show(id){
+
+function clearAllData(){
+  if(!confirm('Yakin ingin menghapus semua data atlet, pembayaran, dan pengeluaran? Data yang dihapus tidak dapat dikembalikan.')) return;
+  db.athletes=[];
+  db.payments=[];
+  db.expenses=[];
+  save();
+  render();
+  alert('Semua data lama berhasil dihapus.');
+  }
+  function show(id){
 document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
 $(id).classList.add('active');render();
 }
