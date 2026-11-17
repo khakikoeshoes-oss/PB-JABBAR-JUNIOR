@@ -291,6 +291,9 @@ render();
   
 <!-- FIREBASE CONNECTION -->
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+
+  
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <script>
@@ -305,7 +308,7 @@ const pbFirebaseConfig = {
 
 const pbFirebaseApp = firebase.initializeApp(pbFirebaseConfig);
 const pbCloudDb = pbFirebaseApp.firestore();
-
+const pbAuth = pbFirebaseApp.auth();
 console.log("Firebase PB JABBAR JUNIOR siap");
 </script>
   
