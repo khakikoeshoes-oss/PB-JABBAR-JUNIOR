@@ -228,14 +228,49 @@ $('arrears').innerHTML=db.athletes.filter(a=>!db.payments.some(p=>p.id===a.id&&p
 $('recent').innerHTML=[...db.payments.map(p=>({date:p.date,name:db.athletes.find(a=>a.id===p.id)?.name||'Atlet',amount:p.amount,type:'SPP'})),...db.expenses.map(e=>({date:e.date,name:e.category,amount:-e.amount,type:'Keluar'}))].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8).map(x=>`<div class="item">${x.date} · ${x.name}<b style="float:right">${money(x.amount)}</b></div>`).join('')||'Belum ada transaksi.';
 $('paymentList').innerHTML=db.payments.map(p=>`<div class="item">${db.athletes.find(a=>a.id===p.id)?.name||'-'} · ${p.month}<br><b class="green">LUNAS</b> · ${money(p.amount)} · ${p.method}</div>`).join('')||'Belum ada pembayaran.';
 $('expenseList').innerHTML=db.expenses.map(e=>`<div class="item">${e.date} · ${e.category}<br>${e.note||''}<b style="float:right">${money(e.amount)}</b>${e.photo?`<br><a href="${e.photo}" target="_blank">Lihat nota</a>`:''}</div>`).join('')||'Belum ada pengeluaran.';
+
 let total=db.payments.reduce((s,p)=>s+p.amount,0);
-let parts=[['Sewa Lapangan',50],['Gaji Pelatih',10],['Peralatan',20],['Kas Klub',20]];
-$('fundList').innerHTML=parts.map(([n,p])=>`<div class="item"><b>${n} (${p}%)</b><br>${money(total*p/100)}</div>`).join('');
-$('fundTotal').textContent='Total pemasukan: '+money(total);
+let fp=db.settings.fundPercentages||{coach:10,equipment:20,club:70};
+let rent=600000;
+let remaining=Math.max(0,total-rent);
+$('fundList').innerHTML=`
+<div class="item"><b>Sewa Lapangan (Tetap)</b><br>${money(rent)}</div>
+<label>Gaji Pelatih (%)</label><input id="fundCoach" type="number" value="${fp.coach}">
+<label>Peralatan (%)</label><input id="fundEquipment" type="number" value="${fp.equipment}">
+<label>Kas Klub (%)</label><input id="fundClub" type="number" value="${fp.club}">
+<div class="item">Gaji Pelatih: ${money(remaining*fp.coach/100)}</div>
+<div class="item">Peralatan: ${money(remaining*fp.equipment/100)}</div>
+<div class="item">Kas Klub: ${money(remaining*fp.club/100)}</div>
+<button class="wide" onclick="saveFundSettings()">Simpan Persentase</button>
+`;
+$('fundTotal').textContent='Total pemasukan: '+money(total)+' | Sisa setelah sewa: '+money(remaining);
+
 renderAthletes();
 }
+  
+function saveFundSettings(){
+  let coach=Number($('fundCoach').value);
+  let equipment=Number($('fundEquipment').value);
+  let club=Number($('fundClub').value);
+
+  if(![coach,equipment,club].every(Number.isFinite)||coach<0||equipment<0||club<0){
+    alert('Persentase harus berupa angka positif.');
+    return;
+  }
+
+  if(coach+equipment+club!==100){
+    alert('Total persentase wajib 100%.');
+    return;
+  }
+
+  db.settings.fundPercentages={coach:coach,equipment:equipment,club:club};
+  save();
+  render();
+  alert('Persentase pembagian dana berhasil disimpan.');
+  }
+  
 function saveSettings(){
-db.settings={title:$('sTitle').value||'PB JABBAR JUNIOR',address:$('sAddress').value,coach:$('sCoach').value,fee:Number($('sFee').value)||0};save();alert('Pengaturan disimpan.');
+db.settings={...db.settings,title:$('sTitle').value||'PB JABBAR JUNIOR',address:$('sAddress').value,coach:$('sCoach').value,fee:Number($('sFee').value)||0};save();alert('Pengaturan disimpan.');
 }
 function exportCSV(){
 let rows=[['Tanggal','Jenis','Nama/Kategori','Nominal','Keterangan']];
