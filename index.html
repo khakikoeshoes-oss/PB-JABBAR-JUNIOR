@@ -32,7 +32,13 @@ table{width:100%;border-collapse:collapse;font-size:13px}
 td,th{padding:9px;border-bottom:1px solid #e2e8f0;text-align:left}
 img.photo{width:48px;height:48px;border-radius:50%;object-fit:cover}
 .wide{width:100%;margin-top:8px}
+  body:not(.logged-in) header,
+body:not(.logged-in) nav,
+body:not(.logged-in) main {
+  display: none !important;
+}
 </style>
+  
 </head>
 <body>
   
@@ -307,10 +313,9 @@ render();function loginPB(){
 
   window.pbAuth.signInWithEmailAndPassword(email,password)
     .then(()=>{
-      $('loginBox').style.display='none';
-      document.querySelectorAll('header,nav,main')
-        .forEach(el=>el.style.display='');
-    })
+  document.body.classList.add('logged-in');
+  $('loginBox').style.display='none';
+})
     .catch(()=>{
       error.textContent='Email atau password salah.';
     });
