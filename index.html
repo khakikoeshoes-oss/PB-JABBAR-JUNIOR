@@ -35,6 +35,18 @@ img.photo{width:48px;height:48px;border-radius:50%;object-fit:cover}
 </style>
 </head>
 <body>
+  
+<div id="loginBox" style="max-width:420px;margin:40px auto;padding:24px;background:white;border-radius:12px;">
+  <h2>PB JABBAR JUNIOR</h2>
+  <h3>Login Pengguna</h3>
+  <label>Email</label>
+  <input type="email" id="loginEmail" placeholder="Masukkan email">
+  <label>Password</label>
+  <input type="password" id="loginPassword" placeholder="Masukkan password">
+  <button class="wide" onclick="loginPB()">MASUK</button>
+  <p id="loginError" style="color:red"></p>
+</div>
+  
 <header>
 <h2 id="clubTitle">PB JABBAR JUNIOR</h2>
 <div id="clubAddress">Sistem Pembukuan Klub Bulutangkis</div>
@@ -286,7 +298,23 @@ function restore(e){
 let f=e.target.files[0];if(!f)return;
 let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);save();alert('Backup dipulihkan.')}catch{alert('File backup tidak valid.')}};r.readAsText(f);
 }
-render();
+render();function loginPB(){
+  const email=$('loginEmail').value.trim();
+  const password=$('loginPassword').value;
+  const error=$('loginError');
+
+  error.textContent='';
+
+  window.pbAuth.signInWithEmailAndPassword(email,password)
+    .then(()=>{
+      $('loginBox').style.display='none';
+      document.querySelectorAll('header,nav,main')
+        .forEach(el=>el.style.display='');
+    })
+    .catch(()=>{
+      error.textContent='Email atau password salah.';
+    });
+  }
 </script>
   
 <!-- FIREBASE CONNECTION -->
@@ -308,7 +336,7 @@ const pbFirebaseConfig = {
 
 const pbFirebaseApp = firebase.initializeApp(pbFirebaseConfig);
 const pbCloudDb = pbFirebaseApp.firestore();
-const pbAuth = pbFirebaseApp.auth();
+window.pbAuth = pbFirebaseApp.auth();
 console.log("Firebase PB JABBAR JUNIOR siap");
 </script>
   
