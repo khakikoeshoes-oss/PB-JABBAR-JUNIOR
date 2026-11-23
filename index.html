@@ -1,360 +1,57 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PB JABBAR JUNIOR</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#102b55"><title>PB JABBAR JUNIOR</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f1f5f9;color:#172554;font-family:Arial,sans-serif}
-header{background:#102b55;color:white;padding:22px}
-header h2{margin:0 0 5px}
-nav{display:flex;overflow:auto;background:white;padding:8px;gap:6px;position:sticky;top:0}
-button{border:0;border-radius:8px;padding:11px;background:#1765b5;color:white;font-weight:bold;cursor:pointer}
-nav button{background:#e5edf7;color:#17365d;white-space:nowrap}
-main{padding:14px;max-width:850px;margin:auto}
-section{display:none}
-section.active{display:block}
-.card{background:white;padding:16px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px #0000000b}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:white;padding:15px;border-radius:12px}
-.stat small{color:#64748b}
-.stat strong{display:block;font-size:19px;margin-top:8px}
-input,select{width:100%;padding:12px;margin:6px 0 12px;border:1px solid #cbd5e1;border-radius:8px;background:white}
-label{font-size:13px;font-weight:bold}
-h3{margin-top:5px}
-.item{padding:12px 0;border-bottom:1px solid #e2e8f0}
-.green{color:#15803d;font-weight:bold}
-.red{color:#dc2626;font-weight:bold}
-.muted{color:#64748b;font-size:13px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-td,th{padding:9px;border-bottom:1px solid #e2e8f0;text-align:left}
-img.photo{width:48px;height:48px;border-radius:50%;object-fit:cover}
-.wide{width:100%;margin-top:8px}
-  body:not(.logged-in) header,
-body:not(.logged-in) nav,
-body:not(.logged-in) main {
-  display: none !important;
-}
+:root{--navy:#102b55;--blue:#1d4f91;--bg:#f1f5f9;--ink:#172033;--muted:#64748b;--line:#dbe3ee;--red:#b42318;--green:#067647}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}header{background:var(--navy);color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:0;z-index:3}header h2{font-size:18px;margin:0}button{border:0;border-radius:9px;padding:10px 13px;background:var(--blue);color:#fff;font-weight:650;cursor:pointer}button.secondary{background:#e8eef6;color:#183153}button.danger{background:#b42318}button.small{padding:6px 9px;font-size:12px}nav{display:flex;gap:7px;overflow:auto;padding:10px;background:#fff;border-bottom:1px solid var(--line)}nav button{white-space:nowrap;background:#e8eef6;color:#183153}nav button.active{background:var(--navy);color:white}main{max-width:1000px;margin:auto;padding:14px}.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin:0 0 14px;box-shadow:0 2px 8px #14243a0a}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.stat{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:13px}.stat b{display:block;font-size:20px;margin-top:5px}.muted{color:var(--muted);font-size:13px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.field{margin:9px 0}label{display:block;font-size:13px;font-weight:650;margin-bottom:5px}input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:70px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:9px 7px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f8fafc}.scroll{overflow:auto}.pill{display:inline-block;padding:3px 8px;border-radius:20px;background:#e8eef6;font-size:12px}.red{color:var(--red);font-weight:700}.green{color:var(--green);font-weight:700}.hidden{display:none!important}.login{max-width:420px;margin:8vh auto;padding:20px}.login h1{font-size:23px;color:var(--navy)}.item{padding:10px;border-bottom:1px solid var(--line)}.item:last-child{border:0}.actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.wall{background-size:cover;background-position:center;position:relative}.wall:before{content:"";position:absolute;inset:0;background:#fffD;border-radius:14px}.wall>*{position:relative}.notice{padding:10px;border-radius:9px;background:#fff7db;color:#744b00;font-size:13px}.photo{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#e2e8f0}.tiny{font-size:12px}section{display:none}section.active{display:block}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}@media(max-width:520px){main{padding:9px}.panel{padding:12px}header{padding:13px}table{min-width:560px}}
 </style>
-  
-</head>
-<body>
-  
-<div id="loginBox" style="max-width:420px;margin:40px auto;padding:24px;background:white;border-radius:12px;">
-  <h2>PB JABBAR JUNIOR</h2>
-  <h3>Login Pengguna</h3>
-  <label>Email</label>
-  <input type="email" id="loginEmail" placeholder="Masukkan email">
-  <label>Password</label>
-  <input type="password" id="loginPassword" placeholder="Masukkan password">
-  <button class="wide" onclick="loginPB()">MASUK</button>
-  <p id="loginError" style="color:red"></p>
-</div>
-  
-<header>
-<h2 id="clubTitle">PB JABBAR JUNIOR</h2>
-<div id="clubAddress">Sistem Pembukuan Klub Bulutangkis</div>
-  <button onclick="logoutPB()" style="margin-top:10px;background:#dc2626;color:white">
-KELUAR
-  </button>
-</header>
-<nav>
-<button onclick="show('home')">Dashboard</button>
-<button onclick="show('athletes')">Atlet</button>
-<button onclick="show('payments')">Pembayaran</button>
-<button onclick="show('expenses')">Pengeluaran</button>
-<button onclick="show('funds')">Pembagian Dana</button>
-<button onclick="show('settings')">Setting</button>
-</nav>
+</head><body>
+<div id="loginView" class="login panel"><h1>PB JABBAR JUNIOR</h1><p class="muted">Sistem pembukuan klub bulutangkis</p><div class="field"><label>Email</label><input id="email" type="email" autocomplete="username" placeholder="Email akun"></div><div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Password"></div><button style="width:100%" onclick="login()">Masuk</button><p id="loginMsg" class="muted"></p></div>
+<div id="appView" class="hidden"><header><div><h2 id="clubTitle">PB JABBAR JUNIOR</h2><div class="tiny">Pembukuan klub bulutangkis</div></div><button class="secondary small" onclick="logout()">Keluar</button></header>
+<nav id="nav"><button class="active" data-tab="home">Dashboard</button><button data-tab="athletes">Atlet</button><button data-tab="payments">Pembayaran</button><button data-tab="expenses">Pengeluaran</button><button data-tab="funds">Pembagian Dana</button><button data-tab="reports">Laporan</button><button data-tab="settings">Pengaturan</button></nav>
 <main>
-<section id="home" class="active">
-<h3>Dashboard Keuangan</h3>
-<div class="stats">
-<div class="stat"><small>Saldo Kas</small><strong id="balance">Rp0</strong></div>
-<div class="stat"><small>Atlet Aktif</small><strong id="totalAthletes">0</strong></div>
-<div class="stat"><small>Pemasukan Bulan Ini</small><strong id="income">Rp0</strong></div>
-<div class="stat"><small>Pengeluaran Bulan Ini</small><strong id="outcome">Rp0</strong></div>
-</div>
-<div class="card">
-<h3>Atlet Belum Membayar</h3>
-<div id="arrears">Belum ada data.</div>
-</div>
-<div class="card">
-<h3>Transaksi Terbaru</h3>
-<div id="recent">Belum ada transaksi.</div>
-</div>
-</section>
-
-<section id="athletes">
-<h3>Data Atlet</h3>
-<div class="card">
-<label>Nama Atlet</label><input id="aName" placeholder="Nama lengkap">
-<label>Tanggal Lahir</label><input id="aBirth" type="date">
-<label>No HP Orang Tua</label><input id="aPhone" placeholder="08xxxxxxxx">
-<label>Kategori</label>
-<select id="aCategory"><option>Pemula</option><option>Prestasi</option></select>
-<label>Foto Atlet</label><input id="aPhoto" type="file" accept="image/*">
-<button class="wide" onclick="addAthlete()">Simpan Atlet</button>
-</div>
-<input id="searchAthlete" placeholder="Cari nama atlet..." oninput="renderAthletes()">
-<div class="card" id="athleteList"></div>
-</section>
-
-<section id="payments">
-<h3>Pembayaran SPP</h3>
-<div class="card">
-<label>Pilih Atlet</label><select id="pAthlete"></select>
-<label>Bulan Pembayaran</label><input id="pMonth" type="month">
-<label>Nominal SPP</label><input id="pAmount" type="number" value="150000">
-<label>Metode</label>
-<select id="pMethod"><option>Cash</option><option>Transfer</option></select>
-<button class="wide" onclick="addPayment()">Simpan Pembayaran</button>
-</div>
-<div class="card"><h3>Riwayat Pembayaran</h3><div id="paymentList"></div></div>
-</section>
-
-<section id="expenses">
-<h3>Pengeluaran Klub</h3>
-<div class="card">
-<label>Tanggal</label><input id="eDate" type="date">
-<label>Kategori</label>
-<select id="eCategory">
-<option>Sewa Lapangan</option><option>Gaji Pelatih</option>
-<option>Peralatan</option><option>Shuttle</option>
-<option>Konsumsi</option><option>Lainnya</option>
-</select>
-<label>Nominal</label><input id="eAmount" type="number">
-<label>Keterangan</label><input id="eNote" placeholder="Keterangan transaksi">
-<label>Foto Bukti / Nota</label><input id="ePhoto" type="file" accept="image/*">
-<button class="wide" onclick="addExpense()">Simpan Pengeluaran</button>
-</div>
-<div class="card"><h3>Riwayat Pengeluaran</h3><div id="expenseList"></div></div>
-</section>
-
-<section id="funds">
-<h3>Pembagian Dana Otomatis</h3>
-<div class="card">
-<p>Setiap pemasukan SPP dibagi secara otomatis:</p>
-<div id="fundList"></div>
-<h3 id="fundTotal"></h3>
-<p class="muted">Saldo pos berkurang ketika pengeluaran dicatat pada kategori yang sesuai.</p>
-</div>
-</section>
-
-<section id="settings">
-<h3>Pengaturan Klub</h3>
-<div class="card">
-<label>Nama Klub</label><input id="sTitle">
-<label>Alamat</label><input id="sAddress">
-<label>Nama Pelatih</label><input id="sCoach">
-<label>SPP Default</label><input id="sFee" type="number">
-<button class="wide" onclick="saveSettings()">Simpan Pengaturan</button>
-</div>
-<div class="card">
-<h3>Laporan</h3>
-<button class="wide" onclick="exportCSV()">Export Data Excel (CSV)</button>
-<button class="wide" onclick="window.print()">Cetak Laporan</button>
-<button class="wide" onclick="backup()">Backup Data</button>
-  
-<button class="wide" onclick="clearAllData()">Hapus Semua Data</button>
-<label>Restore Backup</label><input type="file" accept=".json" onchange="restore(event)">
-</div>
-</section>
-</main>
+<section id="home" class="active"><div id="homePanel" class="panel"><h3>Dashboard</h3><div class="row"><div class="field"><label>Bulan laporan</label><input id="dashMonth" type="month"></div><div class="field"><label>&nbsp;</label><button onclick="renderAll()">Tampilkan</button></div></div><div class="grid"><div class="stat">Atlet aktif<b id="sAth">0</b></div><div class="stat">Pemasukan bulan ini<b id="sIn">Rp0</b></div><div class="stat">Pengeluaran bulan ini<b id="sOut">Rp0</b></div><div class="stat">Saldo bersih bulan ini<b id="sBal">Rp0</b></div></div><h3>Atlet belum bayar</h3><div id="dashArrears" class="muted">Belum ada data.</div><h3>Transaksi terbaru</h3><div id="recent"></div></div></section>
+<section id="athletes"><div class="panel"><h3 id="athFormTitle">Tambah atlet</h3><input type="hidden" id="athId"><div class="field"><label>Nama atlet</label><input id="athName" placeholder="Nama lengkap"></div><div class="row"><div class="field"><label>Tanggal lahir</label><input id="athBirth" type="date"></div><div class="field"><label>No. HP orang tua</label><input id="athPhone" inputmode="tel"></div></div><div class="row"><div class="field"><label>Kategori</label><select id="athCategory"><option>Pemula</option><option>Pratama</option><option>Prestasi</option><option>Dewasa</option></select></div><div class="field"><label>Status</label><select id="athStatus"><option value="aktif">Aktif</option><option value="nonaktif">Nonaktif</option></select></div></div><div class="field"><label>Foto atlet (opsional)</label><input id="athPhoto" type="file" accept="image/*"></div><button onclick="saveAthlete()">Simpan atlet</button> <button class="secondary" onclick="resetAthForm()">Batal</button></div><div class="panel"><div class="row"><h3>Daftar atlet</h3><input id="athSearch" placeholder="Cari nama..." oninput="renderAthletes()"></div><div id="athList"></div></div></section>
+<section id="payments"><div class="panel"><h3 id="payFormTitle">Catat pembayaran</h3><input type="hidden" id="payId"><div class="field"><label>Atlet</label><select id="payAth"></select></div><div class="row"><div class="field"><label>Bulan iuran</label><input id="payMonth" type="month"></div><div class="field"><label>Tanggal bayar</label><input id="payDate" type="date"></div></div><div class="row"><div class="field"><label>Jumlah (Rp)</label><input id="payAmount" type="number" min="0"></div><div class="field"><label>Metode</label><select id="payMethod"><option>Tunai</option><option>Transfer</option><option>QRIS</option></select></div></div><button onclick="savePayment()">Simpan pembayaran</button> <button class="secondary" onclick="resetPayForm()">Batal</button></div><div class="panel"><h3>Riwayat pembayaran</h3><div id="payList"></div></div></section>
+<section id="expenses"><div class="panel"><h3 id="expFormTitle">Tambah pengeluaran</h3><input type="hidden" id="expId"><div class="row"><div class="field"><label>Tanggal</label><input id="expDate" type="date"></div><div class="field"><label>Kategori</label><input id="expCategory" placeholder="Contoh: shuttlecock"></div></div><div class="field"><label>Jumlah (Rp)</label><input id="expAmount" type="number" min="0"></div><div class="field"><label>Keterangan</label><textarea id="expNote"></textarea></div><button onclick="saveExpense()">Simpan pengeluaran</button> <button class="secondary" onclick="resetExpForm()">Batal</button></div><div class="panel"><h3>Riwayat pengeluaran</h3><div id="expList"></div></div></section>
+<section id="funds"><div class="panel"><h3>Pengaturan pembagian dana</h3><div class="notice">Sewa lapangan tetap Rp600.000 per bulan dan dikeluarkan sebelum pembagian persentase. Total persentase wajib 100%.</div><div class="row"><div class="field"><label>Sewa lapangan tetap (Rp)</label><input id="rent" type="number" value="600000" readonly></div><div class="field"><label>Gaji pelatih (%)</label><input id="pctCoach" type="number" min="0" max="100"></div></div><div class="row"><div class="field"><label>Peralatan (%)</label><input id="pctEquip" type="number" min="0" max="100"></div><div class="field"><label>Kas klub (%)</label><input id="pctClub" type="number" min="0" max="100"></div></div><button onclick="saveFundSettings()">Simpan persentase</button><p id="pctMsg" class="muted"></p></div><div class="panel"><h3>Hasil pembagian dana</h3><label>Bulan</label><input id="fundMonth" type="month"><button onclick="renderFunds()">Hitung</button><div id="fundResult"></div></div></section>
+<section id="reports"><div class="panel"><h3>Laporan bulanan</h3><label>Pilih bulan</label><input id="reportMonth" type="month"><button onclick="renderReport()">Tampilkan laporan</button> <button class="secondary" onclick="exportCSV()">Unduh CSV</button><div id="reportResult"></div></div></section>
+<section id="settings"><div class="panel"><h3>Pengaturan klub</h3><div class="field"><label>Nama klub</label><input id="setTitle"></div><div class="field"><label>Alamat / keterangan</label><input id="setAddress"></div><div class="field"><label>Nama pelatih</label><input id="setCoach"></div><div class="field"><label>Iuran bulanan default (Rp)</label><input id="setFee" type="number"></div><button onclick="saveSettings()">Simpan pengaturan</button></div><div class="panel"><h3>Wallpaper dashboard</h3><input id="wallFile" type="file" accept="image/*"><button onclick="saveWallpaper()">Pasang wallpaper</button> <button class="secondary" onclick="clearWallpaper()">Hapus wallpaper</button><p class="muted">Gunakan gambar yang ukurannya kecil agar sinkronisasi lebih lancar.</p></div><div class="panel"><h3>Backup dan pemulihan</h3><button onclick="backupJSON()">Unduh backup JSON</button><div class="field"><label>Pulihkan dari file backup JSON</label><input id="restoreFile" type="file" accept="application/json"></div><button class="secondary" onclick="restoreJSON()">Pulihkan data</button><p class="muted">Simpan file backup di tempat aman. Pemulihan akan mengganti data aplikasi saat ini.</p></div><div class="panel"><h3>Status sinkronisasi</h3><p id="syncStatus" class="muted">Menunggu login...</p><button class="secondary" onclick="syncNow()">Sinkronkan sekarang</button></div></section>
+</main><footer>PB JABBAR JUNIOR · Data disimpan dan disinkronkan setelah login</footer></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-const $=id=>document.getElementById(id);
-let db=JSON.parse(localStorage.getItem('pbjabbar')||'null')||{
-athletes:[],payments:[],expenses:[],
-settings:{title:'PB JABBAR JUNIOR',address:'Sistem Pembukuan Klub Bulutangkis',coach:'',fee:150000}
-};
-const money=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
-const today=()=>new Date().toISOString().slice(0,10);
-const month=()=>today().slice(0,7);
-function save(){localStorage.setItem('pbjabbar',JSON.stringify(db));render()}
-
-function clearAllData(){
-  if(!confirm('Yakin ingin menghapus semua data atlet, pembayaran, dan pengeluaran? Data yang dihapus tidak dapat dikembalikan.')) return;
-  db.athletes=[];
-  db.payments=[];
-  db.expenses=[];
-  save();
-  render();
-  alert('Semua data lama berhasil dihapus.');
-  }
-  function show(id){
-document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
-$(id).classList.add('active');render();
-}
-function addAthlete(){
-let name=$('aName').value.trim();
-if(!name)return alert('Isi nama atlet.');
-let file=$('aPhoto').files[0];
-let add=photo=>{
-db.athletes.push({id:Date.now(),name,birth:$('aBirth').value,phone:$('aPhone').value,category:$('aCategory').value,photo});
-['aName','aBirth','aPhone','aPhoto'].forEach(x=>$(x).value='');save();
-};
-if(file){let r=new FileReader();r.onload=()=>add(r.result);r.readAsDataURL(file)}
-else add('');
-}
-function addPayment(){
-let id=Number($('pAthlete').value),m=$('pMonth').value,amount=Number($('pAmount').value);
-if(!id||!m||amount<=0)return alert('Lengkapi pembayaran.');
-if(db.payments.some(p=>p.id===id&&p.month===m))return alert('Pembayaran bulan ini sudah tercatat.');
-db.payments.push({id,month:m,amount,method:$('pMethod').value,date:today()});save();
-}
-function addExpense(){
-let amount=Number($('eAmount').value);
-if(amount<=0)return alert('Masukkan nominal.');
-let file=$('ePhoto').files[0];
-let add=photo=>{
-db.expenses.push({date:$('eDate').value||today(),category:$('eCategory').value,amount,note:$('eNote').value,photo});
-$('eAmount').value='';$('eNote').value='';$('ePhoto').value='';save();
-};
-if(file){let r=new FileReader();r.onload=()=>add(r.result);r.readAsDataURL(file)}
-else add('');
-}
-function renderAthletes(){
-let q=$('searchAthlete').value.toLowerCase();
-$('athleteList').innerHTML=db.athletes.filter(a=>a.name.toLowerCase().includes(q)).map(a=>
-`<div class="item">${a.photo?`<img class="photo" src="${a.photo}">`:''}
-<b>${a.name}</b><br><span class="muted">${a.category} · ${a.phone||'-'}</span>
-<button onclick="deleteAthlete(${a.id})">Hapus</button>
-</div>`).join('')||'Belum ada atlet.';
-}
-function deleteAthlete(id){
-if(confirm('Hapus atlet? Riwayat pembayarannya juga akan dihapus.')){
-db.athletes=db.athletes.filter(a=>a.id!==id);
-db.payments=db.payments.filter(p=>p.id!==id);save();
-}}
-function render(){
-let income=db.payments.filter(p=>p.month===month()).reduce((s,p)=>s+p.amount,0);
-let expense=db.expenses.filter(e=>e.date.startsWith(month())).reduce((s,e)=>s+e.amount,0);
-$('balance').textContent=money(db.payments.reduce((s,p)=>s+p.amount,0)-db.expenses.reduce((s,e)=>s+e.amount,0));
-$('totalAthletes').textContent=db.athletes.length;
-$('income').textContent=money(income);
-$('outcome').textContent=money(expense);
-$('clubTitle').textContent=db.settings.title;
-$('clubAddress').textContent=db.settings.address;
-$('sTitle').value=db.settings.title;
-$('sAddress').value=db.settings.address;
-$('sCoach').value=db.settings.coach;
-$('sFee').value=db.settings.fee;
-$('pAmount').value=db.settings.fee;
-$('pMonth').value=month();
-$('eDate').value=today();
-$('pAthlete').innerHTML=db.athletes.map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
-$('arrears').innerHTML=db.athletes.filter(a=>!db.payments.some(p=>p.id===a.id&&p.month===month())).map(a=>`<div class="item red">${a.name} — BELUM BAYAR</div>`).join('')||'Tidak ada tunggakan bulan ini.';
-$('recent').innerHTML=[...db.payments.map(p=>({date:p.date,name:db.athletes.find(a=>a.id===p.id)?.name||'Atlet',amount:p.amount,type:'SPP'})),...db.expenses.map(e=>({date:e.date,name:e.category,amount:-e.amount,type:'Keluar'}))].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8).map(x=>`<div class="item">${x.date} · ${x.name}<b style="float:right">${money(x.amount)}</b></div>`).join('')||'Belum ada transaksi.';
-$('paymentList').innerHTML=db.payments.map(p=>`<div class="item">${db.athletes.find(a=>a.id===p.id)?.name||'-'} · ${p.month}<br><b class="green">LUNAS</b> · ${money(p.amount)} · ${p.method}</div>`).join('')||'Belum ada pembayaran.';
-$('expenseList').innerHTML=db.expenses.map(e=>`<div class="item">${e.date} · ${e.category}<br>${e.note||''}<b style="float:right">${money(e.amount)}</b>${e.photo?`<br><a href="${e.photo}" target="_blank">Lihat nota</a>`:''}</div>`).join('')||'Belum ada pengeluaran.';
-
-let total=db.payments.reduce((s,p)=>s+p.amount,0);
-let fp=db.settings.fundPercentages||{coach:10,equipment:20,club:70};
-let rent=600000;
-let remaining=Math.max(0,total-rent);
-$('fundList').innerHTML=`
-<div class="item"><b>Sewa Lapangan (Tetap)</b><br>${money(rent)}</div>
-<label>Gaji Pelatih (%)</label><input id="fundCoach" type="number" value="${fp.coach}">
-<label>Peralatan (%)</label><input id="fundEquipment" type="number" value="${fp.equipment}">
-<label>Kas Klub (%)</label><input id="fundClub" type="number" value="${fp.club}">
-<div class="item">Gaji Pelatih: ${money(remaining*fp.coach/100)}</div>
-<div class="item">Peralatan: ${money(remaining*fp.equipment/100)}</div>
-<div class="item">Kas Klub: ${money(remaining*fp.club/100)}</div>
-<button class="wide" onclick="saveFundSettings()">Simpan Persentase</button>
-`;
-$('fundTotal').textContent='Total pemasukan: '+money(total)+' | Sisa setelah sewa: '+money(remaining);
-
-renderAthletes();
-}
-  
-function saveFundSettings(){
-  let coach=Number($('fundCoach').value);
-  let equipment=Number($('fundEquipment').value);
-  let club=Number($('fundClub').value);
-
-  if(![coach,equipment,club].every(Number.isFinite)||coach<0||equipment<0||club<0){
-    alert('Persentase harus berupa angka positif.');
-    return;
-  }
-
-  if(coach+equipment+club!==100){
-    alert('Total persentase wajib 100%.');
-    return;
-  }
-
-  db.settings.fundPercentages={coach:coach,equipment:equipment,club:club};
-  save();
-  render();
-  alert('Persentase pembagian dana berhasil disimpan.');
-  }
-  
-function saveSettings(){
-db.settings={...db.settings,title:$('sTitle').value||'PB JABBAR JUNIOR',address:$('sAddress').value,coach:$('sCoach').value,fee:Number($('sFee').value)||0};save();alert('Pengaturan disimpan.');
-}
-function exportCSV(){
-let rows=[['Tanggal','Jenis','Nama/Kategori','Nominal','Keterangan']];
-db.payments.forEach(p=>rows.push([p.date,'Pemasukan',db.athletes.find(a=>a.id===p.id)?.name,p.amount,p.month]));
-db.expenses.forEach(e=>rows.push([e.date,'Pengeluaran',e.category,e.amount,e.note]));
-let csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\n');
-let a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv'}));a.download='Laporan-PB-JABBAR.csv';a.click();
-}
-function backup(){
-let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db)],{type:'application/json'}));a.download='Backup-PB-JABBAR.json';a.click();
-}
-function restore(e){
-let f=e.target.files[0];if(!f)return;
-let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);save();alert('Backup dipulihkan.')}catch{alert('File backup tidak valid.')}};r.readAsText(f);
-}
-render();function loginPB(){
-  const email=$('loginEmail').value.trim();
-  const password=$('loginPassword').value;
-  const error=$('loginError');
-
-  error.textContent='';
-
-  window.pbAuth.signInWithEmailAndPassword(email,password)
-    .then(()=>{
-  document.body.classList.add('logged-in');
-  $('loginBox').style.display='none';
-})
-    .catch(()=>{
-      error.textContent='Email atau password salah.';
-    });
-  }
-  function logoutPB(){
-  window.pbAuth.signOut().then(()=>{
-    document.body.classList.remove('logged-in');
-    $('loginBox').style.display='block';
-  }).catch(()=>{
-    alert('Gagal keluar. Silakan coba lagi.');
-  });
-    }
-</script>
-  
-<!-- FIREBASE CONNECTION -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-
-  
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-
-<script>
-const pbFirebaseConfig = {
-  apiKey: "AIzaSyBJIrp6NNqyaxNcnCjtu6Wav8EaS8nQPV0",
-  authDomain: "pb-jabbar-junior.firebaseapp.com",
-  projectId: "pb-jabbar-junior",
-  storageBucket: "pb-jabbar-junior.firebasestorage.app",
-  messagingSenderId: "927415096445",
-  appId: "1:927415096445:web:54a2ec9a46cff6eb5acd14"
-};
-
-const pbFirebaseApp = firebase.initializeApp(pbFirebaseConfig);
-const pbCloudDb = pbFirebaseApp.firestore();
-window.pbAuth = pbFirebaseApp.auth();
-console.log("Firebase PB JABBAR JUNIOR siap");
-</script>
-  
-</body>
-</html>
+const firebaseConfig={apiKey:"AIzaSyBJIrp6NNqyaxNcnCjtu6Wav8EaS8nQPV0",authDomain:"pb-jabbar-junior.firebaseapp.com",projectId:"pb-jabbar-junior",storageBucket:"pb-jabbar-junior.firebasestorage.app",messagingSenderId:"927415096445",appId:"1:927415096445:web:54a2ec9a46cff6eb5acd14"};
+let auth,dbCloud,user,saveTimer=null;const $=id=>document.getElementById(id);const today=()=>new Date().toISOString().slice(0,10);const monthNow=()=>today().slice(0,7);const rupiah=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
+const blank=()=>({athletes:[],payments:[],expenses:[],settings:{title:'PB JABBAR JUNIOR',address:'Sistem Pembukuan Klub Bulutangkis',coach:'',fee:150000,rent:600000,pctCoach:10,pctEquip:20,pctClub:70,wallpaper:''}});
+let db=JSON.parse(localStorage.getItem('pbjabbar')||'null')||blank();function normalize(){db.athletes ||= [];db.payments ||= [];db.expenses ||= [];db.payments=db.payments.map(p=>({...p,athleteId:p.athleteId||p.id, id:p.athleteId ? p.id : id(), name:p.name||db.athletes.find(a=>a.id===(p.athleteId||p.id))?.name||'Atlet'}));db.expenses=db.expenses.map(x=>({...x,id:x.id||id(),date:x.date||today(),category:x.category||x.name||'Pengeluaran',amount:Number(x.amount||0),note:x.note||x.description||''}));db.settings={...blank().settings,...(db.settings||{})};}
+function localSave(){localStorage.setItem('pbjabbar',JSON.stringify(db));$('syncStatus').textContent='Tersimpan di perangkat. Menunggu sinkronisasi online...';if(user){clearTimeout(saveTimer);saveTimer=setTimeout(syncNow,900)}}
+async function login(){let e=$('email').value.trim(),p=$('password').value;if(!e||!p){$('loginMsg').textContent='Isi email dan password.';return}try{await auth.signInWithEmailAndPassword(e,p)}catch(err){$('loginMsg').textContent='Login gagal: '+err.message}}
+async function logout(){await auth.signOut()}
+async function onLogin(u){user=u;$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');$('syncStatus').textContent='Mengambil data online...';try{const ref=dbCloud.collection('clubs').doc('pb-jabbar-junior');const snap=await ref.get();if(snap.exists){db=snap.data().data||blank();normalize();$('syncStatus').textContent='Data online berhasil dimuat.'}else{normalize();const old=localStorage.getItem('pbjabbar');if(old){db=JSON.parse(old);normalize()}await ref.set({data:db,updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:u.uid});$('syncStatus').textContent='Data awal berhasil disimpan online.'}localSaveNoSync();renderAll()}catch(err){$('syncStatus').textContent='Gagal memuat Firestore: '+err.message+' — periksa Firestore Rules.';normalize();renderAll()}}
+function localSaveNoSync(){localStorage.setItem('pbjabbar',JSON.stringify(db))}
+async function syncNow(){if(!user)return;try{normalize();await dbCloud.collection('clubs').doc('pb-jabbar-junior').set({data:db,updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:user.uid});$('syncStatus').textContent='Sinkronisasi berhasil · '+new Date().toLocaleTimeString('id-ID')}catch(e){$('syncStatus').textContent='Sinkronisasi gagal: '+e.message}}
+function initFirebase(){try{firebase.initializeApp(firebaseConfig);auth=firebase.auth();dbCloud=firebase.firestore();auth.onAuthStateChanged(u=>{if(u)onLogin(u);else{$('appView').classList.add('hidden');$('loginView').classList.remove('hidden');user=null}})}catch(e){$('loginMsg').textContent='Firebase gagal dimulai: '+e.message}}
+$('nav').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(!b)return;document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('main section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));if(b.dataset.tab==='funds')renderFunds()});
+function renderAll(){normalize();$('clubTitle').textContent=db.settings.title;$('dashMonth').value ||= monthNow();$('payMonth').value ||= monthNow();$('payDate').value ||= today();$('expDate').value ||= today();$('fundMonth').value ||= monthNow();$('reportMonth').value ||= monthNow();$('rent').value=db.settings.rent;$('pctCoach').value=db.settings.pctCoach;$('pctEquip').value=db.settings.pctEquip;$('pctClub').value=db.settings.pctClub;$('setTitle').value=db.settings.title;$('setAddress').value=db.settings.address;$('setCoach').value=db.settings.coach;$('setFee').value=db.settings.fee;renderAthletes();renderPayments();renderExpenses();renderDashboard();renderFunds();if(db.settings.wallpaper)$('homePanel').style.backgroundImage=`url(${db.settings.wallpaper})`;else $('homePanel').style.backgroundImage='none'}
+function renderDashboard(){let m=$('dashMonth').value||monthNow(),active=db.athletes.filter(a=>a.status!=='nonaktif'),payments=db.payments.filter(p=>p.month===m),expenses=db.expenses.filter(x=>(x.date||'').slice(0,7)===m),income=payments.reduce((s,p)=>s+Number(p.amount||0),0),out=expenses.reduce((s,x)=>s+Number(x.amount||0),0)+Number(db.settings.rent||600000);$('sAth').textContent=active.length;$('sIn').textContent=rupiah(income);$('sOut').textContent=rupiah(out);$('sBal').textContent=rupiah(income-out);let unpaid=active.filter(a=>!payments.some(p=>p.athleteId===a.id));$('dashArrears').innerHTML=unpaid.length?unpaid.map(a=>`<div class="item"><span class="red">${esc(a.name)} — BELUM BAYAR</span> <span class="muted">${m}</span></div>`).join(''):'<p class="green">Tidak ada tunggakan bulan ini.</p>';let recent=[...db.payments.map(p=>({...p,type:'Pembayaran',date:p.date||p.month})),...db.expenses.map(x=>({...x,type:'Pengeluaran'}))].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,7);$('recent').innerHTML=recent.map(x=>`<div class="item">${esc(x.type)} · ${esc(x.name||x.category||'')} · ${rupiah(x.amount)} <span class="muted">${esc(x.date||'')}</span></div>`).join('')||'<p class="muted">Belum ada transaksi.</p>'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function id(){return crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random())}
+async function imageData(file){if(!file)return '';return new Promise((resolve,reject)=>{let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let c=document.createElement('canvas'),scale=Math.min(1,500/Math.max(im.width,im.height));c.width=im.width*scale;c.height=im.height*scale;c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.65))};im.onerror=reject;im.src=r.result};r.onerror=reject;r.readAsDataURL(file)})}
+async function saveAthlete(){let name=$('athName').value.trim();if(!name)return alert('Nama atlet wajib diisi.');let old=db.athletes.find(a=>a.id===$('athId').value),photo=old?.photo||'';if($('athPhoto').files[0])photo=await imageData($('athPhoto').files[0]);let a={id:old?.id||id(),name,birth:$('athBirth').value,phone:$('athPhone').value,category:$('athCategory').value,status:$('athStatus').value,photo};if(old)db.athletes=db.athletes.map(x=>x.id===old.id?a:x);else db.athletes.push(a);resetAthForm();localSave();renderAll()}
+function editAthlete(i){let a=db.athletes[i];$('athId').value=a.id;$('athName').value=a.name;$('athBirth').value=a.birth||'';$('athPhone').value=a.phone||'';$('athCategory').value=a.category||'Pemula';$('athStatus').value=a.status||'aktif';$('athFormTitle').textContent='Edit atlet';window.scrollTo(0,0)}function delAthlete(i){if(confirm('Hapus atlet ini? Riwayat pembayaran tetap disimpan.')){db.athletes.splice(i,1);localSave();renderAll()}}function resetAthForm(){['athId','athName','athBirth','athPhone'].forEach(x=>$(x).value='');$('athPhoto').value='';$('athFormTitle').textContent='Tambah atlet'}
+function renderAthletes(){let q=($('athSearch').value||'').toLowerCase();$('athList').innerHTML=db.athletes.map((a,i)=>({a,i})).filter(x=>x.a.name.toLowerCase().includes(q)).map(({a,i})=>`<div class="item row"><div style="flex:0 0 48px"><img class="photo" src="${a.photo||''}" onerror="this.style.visibility='hidden'"></div><div><b>${esc(a.name)}</b><div class="muted">${esc(a.category||'')} · ${esc(a.status||'aktif')} · ${esc(a.phone||'')}</div></div><div class="actions"><button class="small" onclick="editAthlete(${i})">Edit</button><button class="small danger" onclick="delAthlete(${i})">Hapus</button></div></div>`).join('')||'<p class="muted">Belum ada atlet.</p>';let opts=db.athletes.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join('');$('payAth').innerHTML=opts||'<option value="">Belum ada atlet</option>'}
+function savePayment(){let aid=$('payAth').value,ath=db.athletes.find(a=>a.id===aid),amount=Number($('payAmount').value);if(!ath||!$('payMonth').value||amount<=0)return alert('Lengkapi atlet, bulan, dan jumlah pembayaran.');let old=db.payments.find(p=>p.id===$('payId').value),p={id:old?.id||id(),athleteId:aid,name:ath.name,month:$('payMonth').value,date:$('payDate').value||today(),amount,method:$('payMethod').value};if(old)db.payments=db.payments.map(x=>x.id===old.id?p:x);else db.payments.push(p);resetPayForm();localSave();renderAll()}
+function editPayment(i){let p=db.payments[i];$('payId').value=p.id;$('payAth').value=p.athleteId;$('payMonth').value=p.month;$('payDate').value=p.date;$('payAmount').value=p.amount;$('payMethod').value=p.method||'Tunai';$('payFormTitle').textContent='Edit pembayaran';window.scrollTo(0,0)}function delPayment(i){if(confirm('Hapus pembayaran ini?')){db.payments.splice(i,1);localSave();renderAll()}}function resetPayForm(){ $('payId').value='';$('payMonth').value=monthNow();$('payDate').value=today();$('payAmount').value='';$('payMethod').value='Tunai';$('payFormTitle').textContent='Catat pembayaran'}
+function renderPayments(){$('payList').innerHTML=db.payments.map((p,i)=>`<div class="item"><b>${esc(p.name)}</b> · ${esc(p.month)} · ${rupiah(p.amount)}<div class="muted">${esc(p.date)} · ${esc(p.method||'')}</div><div class="actions"><button class="small" onclick="editPayment(${i})">Edit</button><button class="small danger" onclick="delPayment(${i})">Hapus</button></div></div>`).join('')||'<p class="muted">Belum ada pembayaran.</p>'}
+function saveExpense(){let amount=Number($('expAmount').value),category=$('expCategory').value.trim();if(!amount||!category)return alert('Isi kategori dan jumlah.');let old=db.expenses.find(x=>x.id===$('expId').value),x={id:old?.id||id(),date:$('expDate').value||today(),category,amount,note:$('expNote').value};if(old)db.expenses=db.expenses.map(y=>y.id===old.id?x:y);else db.expenses.push(x);resetExpForm();localSave();renderAll()}
+function editExpense(i){let x=db.expenses[i];$('expId').value=x.id;$('expDate').value=x.date;$('expCategory').value=x.category;$('expAmount').value=x.amount;$('expNote').value=x.note||'';$('expFormTitle').textContent='Edit pengeluaran';window.scrollTo(0,0)}function delExpense(i){if(confirm('Hapus pengeluaran ini?')){db.expenses.splice(i,1);localSave();renderAll()}}function resetExpForm(){['expId','expCategory','expAmount','expNote'].forEach(x=>$(x).value='');$('expDate').value=today();$('expFormTitle').textContent='Tambah pengeluaran'}function renderExpenses(){$('expList').innerHTML=db.expenses.map((x,i)=>`<div class="item"><b>${esc(x.category)}</b> · ${rupiah(x.amount)}<div class="muted">${esc(x.date)} · ${esc(x.note||'')}</div><div class="actions"><button class="small" onclick="editExpense(${i})">Edit</button><button class="small danger" onclick="delExpense(${i})">Hapus</button></div></div>`).join('')||'<p class="muted">Belum ada pengeluaran.</p>'}
+function saveFundSettings(){let a=+$('pctCoach').value,b=+$('pctEquip').value,c=+$('pctClub').value;if(a<0||b<0||c<0||a+b+c!==100){$('pctMsg').textContent='Jumlah persentase harus tepat 100%.';return}db.settings.pctCoach=a;db.settings.pctEquip=b;db.settings.pctClub=c;localSave();$('pctMsg').textContent='Persentase berhasil disimpan.';renderFunds()}
+function fundCalc(m){let inc=db.payments.filter(p=>p.month===m).reduce((s,p)=>s+ +p.amount,0),rent=Number(db.settings.rent||600000),exp=db.expenses.filter(x=>(x.date||'').slice(0,7)===m).reduce((s,x)=>s+ +x.amount,0),base=Math.max(0,inc-rent-exp);return {inc,rent,exp,base,coach:base*db.settings.pctCoach/100,equip:base*db.settings.pctEquip/100,club:base*db.settings.pctClub/100}}
+function renderFunds(){if(!$('fundMonth'))return;let m=$('fundMonth').value||monthNow(),f=fundCalc(m);$('fundResult').innerHTML=`<div class="grid"><div class="stat">Pemasukan<b>${rupiah(f.inc)}</b></div><div class="stat">Sewa lapangan<b>${rupiah(f.rent)}</b></div><div class="stat">Pengeluaran lain<b>${rupiah(f.exp)}</b></div><div class="stat">Dasar pembagian<b>${rupiah(f.base)}</b></div></div><div class="item">Pelatih (${db.settings.pctCoach}%) <b>${rupiah(f.coach)}</b></div><div class="item">Peralatan (${db.settings.pctEquip}%) <b>${rupiah(f.equip)}</b></div><div class="item">Kas klub (${db.settings.pctClub}%) <b>${rupiah(f.club)}</b></div>`}
+function renderReport(){let m=$('reportMonth').value||monthNow(),f=fundCalc(m),unpaid=db.athletes.filter(a=>a.status!=='nonaktif'&&!db.payments.some(p=>p.athleteId===a.id&&p.month===m));$('reportResult').innerHTML=`<h4>Laporan ${m}</h4><p>Total pemasukan: <b>${rupiah(f.inc)}</b></p><p>Sewa lapangan: ${rupiah(f.rent)}</p><p>Pengeluaran lain: ${rupiah(f.exp)}</p><p>Sisa untuk pembagian: <b>${rupiah(f.base)}</b></p><p>Belum bayar (${unpaid.length} atlet): ${unpaid.map(a=>esc(a.name)).join(', ')||'-'}</p><p>Pelatih: ${rupiah(f.coach)} · Peralatan: ${rupiah(f.equip)} · Kas klub: ${rupiah(f.club)}</p>`}
+function exportCSV(){let m=$('reportMonth').value||monthNow(),rows=[['Jenis','Tanggal/Bulan','Nama/Kategori','Jumlah','Keterangan'],...db.payments.filter(p=>p.month===m).map(p=>['Pembayaran',p.date,p.name,p.amount,p.method]),...db.expenses.filter(x=>(x.date||'').slice(0,7)===m).map(x=>['Pengeluaran',x.date,x.category,x.amount,x.note])];let csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');download('laporan-PB-JABBAR-'+m+'.csv',csv,'text/csv')}
+function saveSettings(){db.settings.title=$('setTitle').value.trim()||'PB JABBAR JUNIOR';db.settings.address=$('setAddress').value;db.settings.coach=$('setCoach').value;db.settings.fee=Number($('setFee').value)||150000;localSave();renderAll();alert('Pengaturan tersimpan.')}
+async function saveWallpaper(){let f=$('wallFile').files[0];if(!f)return alert('Pilih gambar dahulu.');db.settings.wallpaper=await imageData(f);localSave();renderAll();alert('Wallpaper dashboard berhasil dipasang.')};function clearWallpaper(){db.settings.wallpaper='';localSave();renderAll()}
+function download(name,data,type){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([data],{type}));a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}function backupJSON(){download('backup-PB-JABBAR-'+today()+'.json',JSON.stringify({version:2,createdAt:new Date().toISOString(),data:db},null,2),'application/json')}
+async function restoreJSON(){let f=$('restoreFile').files[0];if(!f)return alert('Pilih file backup JSON.');if(!confirm('Data aplikasi saat ini akan diganti dengan isi backup. Lanjutkan?'))return;try{let x=JSON.parse(await f.text());db=x.data||x;normalize();localSave();await syncNow();renderAll();alert('Backup berhasil dipulihkan.')}catch(e){alert('File backup tidak valid: '+e.message)}}
+initFirebase();
+</script></body></html>
