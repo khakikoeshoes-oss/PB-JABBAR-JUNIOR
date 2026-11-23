@@ -56,6 +56,9 @@ body:not(.logged-in) main {
 <header>
 <h2 id="clubTitle">PB JABBAR JUNIOR</h2>
 <div id="clubAddress">Sistem Pembukuan Klub Bulutangkis</div>
+  <button onclick="logoutPB()" style="margin-top:10px;background:#dc2626;color:white">
+KELUAR
+  </button>
 </header>
 <nav>
 <button onclick="show('home')">Dashboard</button>
@@ -320,6 +323,14 @@ render();function loginPB(){
       error.textContent='Email atau password salah.';
     });
   }
+  function logoutPB(){
+  window.pbAuth.signOut().then(()=>{
+    document.body.classList.remove('logged-in');
+    $('loginBox').style.display='block';
+  }).catch(()=>{
+    alert('Gagal keluar. Silakan coba lagi.');
+  });
+    }
 </script>
   
 <!-- FIREBASE CONNECTION -->
